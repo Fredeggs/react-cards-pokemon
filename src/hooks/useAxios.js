@@ -6,8 +6,14 @@ const useAxios = (baseURL) => {
   const [response, setResponse] = useState([]);
   const addData = async (restOfUrl) => {
     console.log(`${baseURL}${restOfUrl}`);
-    const res = await axios.get(`${baseURL}${restOfUrl}`);
-    setResponse((r) => [...r, { ...res.data, id: uuid() }]);
+    if (restOfUrl) {
+      const res = await axios.get(`${baseURL}${restOfUrl}`);
+      setResponse((r) => [...r, { ...res.data, id: uuid() }]);
+    } else {
+      const res = await axios.get(`${baseURL}`);
+      setResponse((r) => [...r, { ...res.data, id: uuid() }]);
+    }
+
     console.log(response);
   };
 
